@@ -1,12 +1,15 @@
-import data from './data'
-import { Router } from 'express'
-import math from './matematica'
-import Login from '../controllers/Login';
+import { Router, Request, Response } from "express";
+import matematica from './matematica';
+import data from "./data"
+import  Login from "../controllers/Login"
+import { authorization } from "../middlewares";
 
-const routes = Router();
+const routes = Router()
 
-routes.use("/date", data)
-routes.use("/math", math)
-routes.post("/login", Login.login);
+routes.post("/login", Login.logar);
+routes.use("/date", data);
+routes.use("/math", authorization, matematica);
+
+routes.use((req: Request, res: Response) => res.json({ error: "Requisição desconhecida" }));
 
 export default routes;
