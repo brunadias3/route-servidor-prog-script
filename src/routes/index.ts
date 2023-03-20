@@ -5,6 +5,7 @@ import user from './user'
 import  Login from "../controllers/Login"
 import { authorization } from "../middlewares";
 import { UserController } from "../controllers";
+import spent from "./spent";
 
 const routes = Router()
 
@@ -12,6 +13,7 @@ routes.post("/login", UserController.login);
 //routes.use("/date", data);
 routes.use("/user", user);
 routes.use("/math", authorization, matematica);
+routes.use("/spent", authorization, spent);
 
 routes.use((req: Request, res: Response) => res.json({ error: "Requisição desconhecida" }));
 
